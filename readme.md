@@ -1,5 +1,5 @@
 # 🛍️ Clothing Store E-Commerce Platform
-![StyleHub Homepage](screenshots/home.png)
+![StyleHub Homepage](screenshots/Home.PNG)
 
 A responsive, full-stack e-commerce web application designed for a modern clothing retail store. This project features a clean user interface for shoppers to browse apparel and a dedicated backend infrastructure to handle server logic.
 
