@@ -13,6 +13,17 @@ A responsive, full-stack e-commerce web application designed for a modern clothi
 
 ---
 
+## 🧠 Backend Engineering Highlights
+
+While the frontend handles the shopping experience, the Go backend was built with real-world production concerns in mind:
+
+* **JWT Authentication & Role-Based Access:** Custom middleware validates tokens and enforces separate permission levels for customers vs. admins, protecting sensitive routes like product management and order status updates.
+* **Transaction-Safe Checkout:** The checkout flow uses SQL transactions with row-level locking (`SELECT ... FOR UPDATE`) to prevent race conditions — ensuring two customers can't oversell the same limited-stock item simultaneously.
+* **Clean Architecture:** Code is organized following idiomatic Go conventions — handlers, middleware, and models are cleanly separated under `internal/`, keeping business logic decoupled from HTTP routing.
+* **RESTful API Design:** A structured `/api` route hierarchy with public, authenticated, and admin-only endpoint groups, built using `gorilla/mux`.
+
+---
+
 ## 🛠️ Tech Stack
 
 * **Frontend:** HTML, CSS, JavaScript
