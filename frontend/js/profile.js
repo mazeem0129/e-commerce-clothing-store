@@ -91,7 +91,7 @@ function createOrderCard(order) {
 }
 
 // ─── SAVE SETTINGS ────────────────────────────────────────
-function saveSettings() {
+async function saveSettings() {
     const name = document.getElementById('settings-name').value.trim();
     const password = document.getElementById('settings-password').value.trim();
     const confirmPassword = document.getElementById('settings-confirm-password').value.trim();
@@ -111,13 +111,35 @@ function saveSettings() {
         return;
     }
 
-    // Update user in localStorage
     const user = getUser();
-    user.name = name;
-    localStorage.setItem('user', JSON.stringify(user));
+    const payload = { name };
+    if (password) {
+        payload.password = password;
+    }
 
-    document.getElementById('profile-name').textContent = name;
-    showNotification('Settings saved successfully!', 'success');
+    try {
+        const response = await fetchWithAuth(`${API_URL}/users/${user.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errText = await response.text();
+            throw new Error(errText || 'Failed to update settings');
+        }
+
+        const data = await response.json();
+
+        localStorage.setItem('user', JSON.stringify(data.user));
+        document.getElementById('profile-name').textContent = data.user.name;
+        document.getElementById('settings-password').value = '';
+        document.getElementById('settings-confirm-password').value = '';
+
+        showNotification('Settings saved successfully!', 'success');
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        showNotification('Error saving settings. Please try again!', 'error');
+    }
 }
 
 // ─── REQUEST RETURN ───────────────────────────────────────

@@ -26,3 +26,8 @@ type LoginResponse struct {
 	Token string `json:"token"`
 	User  User   `json:"user"`
 }
+
+type UpdateProfileRequest struct {
+	Name     string `json:"name"`
+	Password string `json:"password,omitempty"`
+}

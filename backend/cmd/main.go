@@ -67,6 +67,7 @@ func main() {
 	protected.HandleFunc("/addresses", handlers.AddAddress).Methods("POST", "OPTIONS")
 	protected.HandleFunc("/addresses/{id}", handlers.UpdateAddress).Methods("PUT", "OPTIONS")
 	protected.HandleFunc("/addresses/{id}", handlers.DeleteAddress).Methods("DELETE", "OPTIONS")
+	protected.HandleFunc("/users/{id}", handlers.UpdateProfile).Methods("PUT", "OPTIONS")
 
 	// ─── Admin Routes ─────────────────────────────────────────
 	admin := api.PathPrefix("/admin").Subrouter()
